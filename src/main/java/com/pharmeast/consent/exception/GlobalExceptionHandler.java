@@ -1,55 +1,94 @@
 package com.pharmeast.consent.exception;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.context.request.WebRequest;
+@org.springframework.web.bind.annotation.ControllerAdvice
+public class GlobalExceptionHandler
+    extends
+    org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler {
 
-import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.Map;
+    @org.springframework.web.bind.annotation.ExceptionHandler(
+        org.springframework.web.bind.MethodArgumentNotValidException.class
+    )
+    public org.springframework.http.ResponseEntity< Object > handleMethodArgumentNotValidException(
+        org.springframework.web.bind.MethodArgumentNotValidException e
+    ) {
 
-@ControllerAdvice
-public class GlobalExceptionHandler {
+        StringBuilder strBuilder = new StringBuilder();
 
-    private static String getStackTrace(Exception ex) {
-        StringBuilder trace = new StringBuilder();
-        for (StackTraceElement element : ex.getStackTrace()) {
-            trace.append(element.toString()).append("\n");
+        e.getBindingResult().getAllErrors().forEach( ( error ) -> {
+            String fieldName;
+            try {
+                fieldName
+                    = ((org.springframework.validation.FieldError) error).getField();
+
+            } catch ( ClassCastException ex ) {
+                fieldName = error.getObjectName();
+            }
+            String message = error.getDefaultMessage();
+            strBuilder.append( String.format( "%s: %s%n", fieldName, message ) );
+        } );
+
+        return new org.springframework.http.ResponseEntity<>(
+            strBuilder.substring( 0, strBuilder.length() - 1 ),
+            org.springframework.http.HttpStatus.BAD_REQUEST
+        );
+    }
+
+    @org.springframework.web.bind.annotation.ExceptionHandler(
+        {
+            com.pharmeast.consent.exception.ServiceNotFoundException.class,
+            com.pharmeast.consent.exception.EmployeeNotfoundException.class
         }
-        return trace.toString();
+    )
+    public org.springframework.http.ResponseEntity< com.pharmeast.consent.dto.ApiErrorDto > handleNotFoundExceptions(
+        RuntimeException ex, jakarta.servlet.http.HttpServletRequest request ) {
+
+        com.pharmeast.consent.dto.ApiErrorDto errorResponse
+            = new com.pharmeast.consent.dto.ApiErrorDto(
+            java.time.LocalDateTime.now(), request.getRequestURI(), request.getMethod(),
+            org.springframework.http.HttpStatus.NOT_FOUND.value(),
+            org.springframework.http.HttpStatus.NOT_FOUND.getReasonPhrase(),
+            ex.getMessage(), null, ex.getClass()
+        );
+        return org.springframework.http.ResponseEntity.status(
+            org.springframework.http.HttpStatus.NOT_FOUND ).body( errorResponse );
     }
 
-    private static ResponseEntity<Map<String, Object>> buildErrorResponse(
-        Exception ex, HttpStatus status, WebRequest request) {
+    @org.springframework.web.bind.annotation.ExceptionHandler(
+        {
+            com.pharmeast.consent.exception.WrongEmailException.class,
+            com.pharmeast.consent.exception.MissingParameterException.class,
+            com.pharmeast.consent.exception.MissingEmailException.class,
+            com.pharmeast.consent.exception.MissingServiceException.class
+        }
+    )
+    public org.springframework.http.ResponseEntity< com.pharmeast.consent.dto.ApiErrorDto > handleBadRequestExceptions(
+        RuntimeException ex, jakarta.servlet.http.HttpServletRequest request ) {
 
-        Map<String, Object> errorResponse = new HashMap<>();
-        errorResponse.put("timestamp", LocalDateTime.now());
-        errorResponse.put("status", status.value());
-        errorResponse.put("error", status.getReasonPhrase());
-        errorResponse.put("message", ex.getMessage());
-        errorResponse.put("path", request.getDescription(false).replace("uri=", ""));
-        // errorResponse.put("trace", getStackTrace(ex));  // Include stack trace
-
-        return ResponseEntity.status(status).body(errorResponse);
+        com.pharmeast.consent.dto.ApiErrorDto errorResponse
+            = new com.pharmeast.consent.dto.ApiErrorDto(
+            java.time.LocalDateTime.now(), request.getRequestURI(), request.getMethod(),
+            org.springframework.http.HttpStatus.BAD_REQUEST.value(),
+            org.springframework.http.HttpStatus.BAD_REQUEST.getReasonPhrase(),
+            ex.getMessage(), null, ex.getClass()
+        );
+        return org.springframework.http.ResponseEntity.status(
+            org.springframework.http.HttpStatus.BAD_REQUEST ).body( errorResponse );
     }
 
-    @ExceptionHandler(MissingParameterException.class)
-    public ResponseEntity<Map<String, Object>> handleMissingParameterException(
-        MissingParameterException ex, WebRequest request) {
-        return buildErrorResponse(ex, HttpStatus.BAD_REQUEST, request);
-    }
-
-    @ExceptionHandler(MissingIdException.class)
-    public ResponseEntity<Map<String, Object>> handleMissingIdException(
-        MissingIdException ex, WebRequest request) {
-        return buildErrorResponse(ex, HttpStatus.BAD_REQUEST, request);
-    }
-
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<Map<String, Object>> handleGeneralException(
-        Exception ex, WebRequest request) {
-        return buildErrorResponse(ex, HttpStatus.INTERNAL_SERVER_ERROR, request);
-    }
+//    @org.springframework.web.bind.annotation.ExceptionHandler(Exception.class)
+//    public org.springframework.http.ResponseEntity< com.pharmeast.consent.dto.ApiErrorDto > handleGeneralException(
+//        Exception ex, jakarta.servlet.http.HttpServletRequest request ) {
+//
+//        com.pharmeast.consent.dto.ApiErrorDto errorResponse
+//            = new com.pharmeast.consent.dto.ApiErrorDto(
+//            java.time.LocalDateTime.now(), request.getRequestURI(), request.getMethod(),
+//            org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR.value(),
+//            org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(),
+//            ex.getMessage(), null, ex.getClass()
+//        );
+//        // Log the exception details here
+//        return org.springframework.http.ResponseEntity.status(
+//            org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR ).body(
+//            errorResponse );
+//    }
 }

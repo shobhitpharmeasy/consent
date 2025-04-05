@@ -1,17 +1,26 @@
 package com.pharmeast.consent.service;
 
-import com.pharmeast.consent.dto.EmployeeDto;
-
-import java.util.List;
 
 public interface EmployeeService {
-    EmployeeDto createEmployee(EmployeeDto employeeDto);
 
-    List<EmployeeDto> getAllEmployee();
+    com.pharmeast.consent.dto.EmployeeDto createEmployee(
+        com.pharmeast.consent.dto.EmployeeDto employeeDto
+    );
 
-    EmployeeDto getEmployeeById(Long employeeId);
+    java.util.List< com.pharmeast.consent.dto.EmployeeDto > getAllEmployee();
 
-    EmployeeDto updateEmployee(Long employeeId, EmployeeDto employeeDto);
+    com.pharmeast.consent.dto.EmployeeDto getEmployeeByEmail(
+        String employeeEmail
+    );
 
-    String deleteEmployee(Long employeeId);
+    com.pharmeast.consent.dto.EmployeeDto updateEmployee(
+        String employeeEmail,
+        com.pharmeast.consent.dto.EmployeeDto employeeDto
+    );
+
+    String deleteEmployee( String employeeEmail );
+
+    String updatePassword( String employeeEmail, String newPassword );
+
+    Boolean isAuthorized( String employeeEmail, String token );
 }

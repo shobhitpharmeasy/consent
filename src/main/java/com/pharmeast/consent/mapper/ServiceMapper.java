@@ -5,16 +5,17 @@ package com.pharmeast.consent.mapper;
     componentModel = "spring",
     unmappedTargetPolicy = org.mapstruct.ReportingPolicy.IGNORE,
     builder = @org.mapstruct.Builder(disableBuilder = false),
-    // 👈 important if you want to explicitly enable builder
+// 👈 important if you want to explicitly enable builder
     nullValuePropertyMappingStrategy = org.mapstruct.NullValuePropertyMappingStrategy.SET_TO_DEFAULT
 )
-public interface EmployeeMapper {
+public interface ServiceMapper {
 
-    com.pharmeast.consent.dto.EmployeeDto toDto(
-        com.pharmeast.consent.entity.Employee employee
+    com.pharmeast.consent.dto.ServiceDto toDto(
+        com.pharmeast.consent.entity.Service employee
     );
 
-    com.pharmeast.consent.entity.Employee toEntity(
-        com.pharmeast.consent.dto.EmployeeDto employeeDto
+    com.pharmeast.consent.entity.Service toEntity(
+        com.pharmeast.consent.dto.ServiceDto employeeDto
     );
+
 }

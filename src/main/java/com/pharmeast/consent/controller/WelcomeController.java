@@ -1,15 +1,24 @@
 package com.pharmeast.consent.controller;
 
-import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-@RestController
+@org.springframework.web.bind.annotation.RestController
+@io.swagger.v3.oas.annotations.tags.Tag(
+    name = "Welcome Check", description = "Welcome test API"
+)
 public class WelcomeController {
 
-    @GetMapping("/greeting")
-    public String greeting(Authentication authentication) {
+    @org.springframework.web.bind.annotation.GetMapping("/greeting")
+    @org.springframework.security.access.prepost.PreAuthorize(
+        "hasRole('USER') and hasRole('ADMIN')"
+    )
+    @io.swagger.v3.oas.annotations.Operation(
+        summary = "Greeting API"
+    )
+    public String greeting(
+        org.springframework.security.core.Authentication authentication
+    ) {
+
         String userName = authentication.getName();
-        return "Spring Security Basic Authentication Consent Management - Welcome " + userName;
+        return "Spring Security Basic Authentication Consent Management - Welcome " +
+               userName;
     }
 }
