@@ -6,9 +6,12 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ServiceRepository
-    extends JpaRepository< Service, String > {
+    extends JpaRepository<Service, String> {
+
+    Optional<Service> findByName(String name);
 
     @Query(
         """
@@ -17,5 +20,5 @@ public interface ServiceRepository
                 WHERE KEY(ea).email = :email
             """
     )
-    List< Service > findAllServicesByEmployeeEmail( @Param("email") String email );
+    List<Service> findAllServicesByEmployeeEmail(@Param("email") String email);
 }

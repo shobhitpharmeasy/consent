@@ -1,21 +1,23 @@
 package com.pharmeasy.consent.mapper;
 
+import com.pharmeasy.consent.dto.ServiceDto;
+import com.pharmeasy.consent.entity.Service;
+import com.pharmeasy.consent.mapper.helper.ServiceMapperHelper;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
-@org.mapstruct.Mapper(
-    componentModel = "spring",
-    unmappedTargetPolicy = org.mapstruct.ReportingPolicy.IGNORE,
-    builder = @org.mapstruct.Builder(disableBuilder = false),
-// 👈 important if you want to explicitly enable builder
-    nullValuePropertyMappingStrategy = org.mapstruct.NullValuePropertyMappingStrategy.SET_TO_DEFAULT
-)
+import java.util.List;
+
+@Mapper(componentModel = "spring", uses = ServiceMapperHelper.class)
 public interface ServiceMapper {
 
-    com.pharmeasy.consent.dto.ServiceDto toDto(
-        com.pharmeasy.consent.entity.Service employee
-    );
+    @Mapping(source = "createdBy.email", target = "createdByEmail")
+    ServiceDto toDto(Service service);
 
-    com.pharmeasy.consent.entity.Service toEntity(
-        com.pharmeasy.consent.dto.ServiceDto employeeDto
-    );
+    @Mapping(source = "createdByEmail", target = "createdBy.email")
+    Service toEntity(ServiceDto dto);
 
+    List<ServiceDto> toDtoList(List<Service> services);
+
+    List<Service> toEntityList(List<ServiceDto> serviceDtos);
 }

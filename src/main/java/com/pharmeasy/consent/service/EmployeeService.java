@@ -18,5 +18,4 @@ public interface EmployeeService {
 
     String updatePassword(String employeeEmail, String newPassword);
 
-    Boolean isAuthorized(String employeeEmail, String token);
 }

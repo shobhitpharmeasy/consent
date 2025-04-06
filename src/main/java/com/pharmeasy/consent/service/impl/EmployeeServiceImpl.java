@@ -9,11 +9,13 @@ import com.pharmeasy.consent.utils.HashUtils;
 import com.pharmeasy.consent.utils.JwtUtils;
 import com.pharmeasy.consent.utils.RandomUtils;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.text.MessageFormat;
 import java.util.List;
 
+@Slf4j
 @org.springframework.stereotype.Service
 @RequiredArgsConstructor
 public class EmployeeServiceImpl
@@ -25,36 +27,43 @@ public class EmployeeServiceImpl
 
     @Override
     @Transactional
-    public EmployeeDto createEmployee(EmployeeDto employeeDto) {
+    public EmployeeDto createEmployee(final EmployeeDto employeeDto) {
+        log.info("Creating employee: {}", employeeDto.getEmail());
 
         if (employeeRepository.existsById(employeeDto.getEmail())) {
+            log.warn("Employee already exists: {}", employeeDto.getEmail());
             throw new RuntimeException("Employee with ID " + employeeDto.getEmail() + " already exists.");
         }
 
-        String randomPassword = RandomUtils.generateRandomPassword();
-        String hashPassword = HashUtils.hash(randomPassword);
+        final String randomPassword = RandomUtils.generateRandomPassword();
+        final String hashPassword = HashUtils.hash(randomPassword);
 
-        Employee employee = Employee.builder().email(employeeDto.getEmail()).firstName(employeeDto.getFirstName())
-                                    .middleName(employeeDto.getMiddleName()).lastName(employeeDto.getLastName())
-                                    .passwordHash(hashPassword).role(employeeDto.getRole()).build();
+        final Employee employee = Employee.builder().email(employeeDto.getEmail()).firstName(employeeDto.getFirstName())
+                                          .middleName(employeeDto.getMiddleName()).lastName(employeeDto.getLastName())
+                                          .passwordHash(hashPassword).role(employeeDto.getRole()).build();
 
-        Employee savedEmployee = employeeRepository.save(employee);
+        final Employee savedEmployee = employeeRepository.save(employee);
+        log.info("Employee saved: {}", savedEmployee.getEmail());
+
         return employeeMapper.toDto(savedEmployee);
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<EmployeeDto> getAllEmployee() {
-
+        log.info("Fetching all employees");
         return employeeRepository.findAll().stream().map(employeeMapper::toDto).toList();
     }
 
     @Override
     @Transactional(readOnly = true)
-    public EmployeeDto getEmployeeByEmail(String employeeEmail) {
+    public EmployeeDto getEmployeeByEmail(final String employeeEmail) {
+        log.info("Fetching employee by email: {}", employeeEmail);
 
-        Employee employee = employeeRepository.findById(employeeEmail).orElseThrow(
-            () -> new RuntimeException("Email not found: " + employeeEmail));
+        final Employee employee = employeeRepository.findById(employeeEmail).orElseThrow(() -> {
+            log.warn("Employee not found: {}", employeeEmail);
+            return new RuntimeException("Email not found: " + employeeEmail);
+        });
 
         enrichEmployeeWithServiceAccess(employee);
 
@@ -63,10 +72,13 @@ public class EmployeeServiceImpl
 
     @Override
     @Transactional
-    public EmployeeDto updateEmployee(String employeeEmail, EmployeeDto employeeDto) {
+    public EmployeeDto updateEmployee(final String employeeEmail, final EmployeeDto employeeDto) {
+        log.info("Updating employee: {}", employeeEmail);
 
-        Employee existingEmployee = employeeRepository.findById(employeeEmail).orElseThrow(
-            () -> new RuntimeException("Email not found: " + employeeEmail));
+        final Employee existingEmployee = employeeRepository.findById(employeeEmail).orElseThrow(() -> {
+            log.warn("Employee not found for update: {}", employeeEmail);
+            return new RuntimeException("Email not found: " + employeeEmail);
+        });
 
         if (employeeDto.getFirstName() != null) {
             existingEmployee.setFirstName(employeeDto.getFirstName());
@@ -81,44 +93,50 @@ public class EmployeeServiceImpl
             existingEmployee.setEmail(employeeDto.getEmail());
         }
 
-        Employee updatedEmployee = employeeRepository.save(existingEmployee);
+        final Employee updatedEmployee = employeeRepository.save(existingEmployee);
+        log.info("Employee updated: {}", updatedEmployee.getEmail());
+
         return employeeMapper.toDto(updatedEmployee);
     }
 
     @Override
     @Transactional
-    public String deleteEmployee(String employeeEmail) {
+    public String deleteEmployee(final String employeeEmail) {
+        log.info("Deleting employee: {}", employeeEmail);
 
-        Employee employee = employeeRepository.findById(employeeEmail).orElseThrow(
-            () -> new RuntimeException("Email not found: " + employeeEmail));
+        final Employee employee = employeeRepository.findById(employeeEmail).orElseThrow(() -> {
+            log.warn("Attempted to delete non-existent employee: {}", employeeEmail);
+            return new RuntimeException("Email not found: " + employeeEmail);
+        });
 
         employeeRepository.delete(employee);
+        log.info("Deleted employee: {}", employeeEmail);
+
         return MessageFormat.format("Deleted employee with Email: {0}", employeeEmail);
     }
 
     @Override
     @Transactional
-    public String updatePassword(String employeeEmail, String newPassword) {
+    public String updatePassword(final String employeeEmail, final String newPassword) {
+        log.info("Updating password for employee: {}", employeeEmail);
 
-        Employee employee = employeeRepository.findById(employeeEmail).orElseThrow(
-            () -> new RuntimeException("Email not found: " + employeeEmail));
+        final Employee employee = employeeRepository.findById(employeeEmail).orElseThrow(() -> {
+            log.warn("Password update failed - employee not found: {}", employeeEmail);
+            return new RuntimeException("Email not found: " + employeeEmail);
+        });
 
         employee.setPasswordHash(HashUtils.hash(newPassword));
         employeeRepository.save(employee);
+
+        log.info("Password updated successfully for employee: {}", employeeEmail);
         return "Password updated successfully";
     }
 
-    @Override
-    public Boolean isAuthorized(String employeeEmail, String token) {
+    private void enrichEmployeeWithServiceAccess(final Employee employee) {
+        log.debug("Enriching employee {} with service access details", employee.getEmail());
 
-        String usernameFromToken = jwtUtils.extractUsername(token.replace("Bearer ", ""));
-        return usernameFromToken.equals(employeeEmail);
-    }
-
-    private void enrichEmployeeWithServiceAccess(Employee employee) {
-
-        List<Service> requested = employeeRepository.findRequestedServicesByEmployeeEmail(employee.getEmail());
-        List<Service> accessible = employeeRepository.findAccessibleServicesByEmployeeEmail(employee.getEmail());
+        final List<Service> requested = employeeRepository.findRequestedServicesByEmployeeEmail(employee.getEmail());
+        final List<Service> accessible = employeeRepository.findAccessibleServicesByEmployeeEmail(employee.getEmail());
 
         employee.setRequestedServices(requested);
         employee.setAccessibleServices(accessible);

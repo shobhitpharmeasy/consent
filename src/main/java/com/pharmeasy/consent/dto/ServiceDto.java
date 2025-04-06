@@ -1,7 +1,6 @@
 package com.pharmeasy.consent.dto;
 
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
+import com.pharmeasy.consent.entity.Service.AccessStatus;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -44,11 +43,10 @@ public class ServiceDto {
 
     // Optional: Add validation only if the map is required at creation/update
     @NotNull(message = "Employee access map is mandatory")
-// Optional: Add a custom validator for map key/value validation
+    // Optional: Add a custom validator for map key/value validation
     private Map<@Pattern(
         regexp = "^[^@]+@pharmeasy\\.in$", message = "Each email must be a valid pharmeasy.in address"
-    ) String, @Min(value = 0, message = "Access level must be non-negative") @Max(
-        value = 2, message = "Access level must be reasonable"
-    ) Integer> employeeAccess;
+    ) String, @NotNull(message = "Access is mandatory") AccessStatus> employeeAccess;
 
+//    private Map<String, AccessStatus> employeeAccess; // For internal use, not exposed to the client
 }

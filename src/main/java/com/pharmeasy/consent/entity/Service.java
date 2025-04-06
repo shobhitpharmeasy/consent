@@ -66,6 +66,7 @@ public class Service {
     @MapKeyJoinColumn(name = "employee_email")
     @Column(name = "access_status")
     @Enumerated(EnumType.ORDINAL)
+    @Builder.Default
     private Map<Employee, AccessStatus> employeeAccess = new HashMap<>();
 
 

@@ -5,6 +5,7 @@ import com.pharmeasy.consent.service.ServiceService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/services")
 @RequiredArgsConstructor
@@ -32,36 +34,42 @@ public class ServiceController {
     @PostMapping
     @Operation(summary = "Create a new service")
     public ResponseEntity<ServiceDto> createService(@RequestBody ServiceDto dto) {
+        log.info("Received request to create service: {}", dto.getName());
         return ResponseEntity.ok(serviceService.createService(dto));
     }
 
     @GetMapping
     @Operation(summary = "Get all service names")
     public ResponseEntity<List<String>> getAllServices() {
+        log.info("Received request to fetch all services");
         return ResponseEntity.ok(serviceService.getAllServices());
     }
 
     @GetMapping("/{serviceName}")
     @Operation(summary = "Get service details by name")
     public ResponseEntity<ServiceDto> getServiceByName(@PathVariable String serviceName) {
+        log.info("Fetching details for service: {}", serviceName);
         return ResponseEntity.ok(serviceService.getServiceByName(serviceName));
     }
 
     @PutMapping
     @Operation(summary = "Update an existing service")
     public ResponseEntity<ServiceDto> updateService(@RequestBody ServiceDto dto) {
+        log.info("Updating service: {}", dto.getName());
         return ResponseEntity.ok(serviceService.updateService(dto));
     }
 
     @DeleteMapping("/{serviceName}")
     @Operation(summary = "Delete a service by name")
     public ResponseEntity<String> deleteService(@PathVariable String serviceName) {
+        log.info("Deleting service: {}", serviceName);
         return ResponseEntity.ok(serviceService.deleteService(serviceName));
     }
 
     @GetMapping("/{serviceName}/owner")
     @Operation(summary = "Get the owner of a service")
     public ResponseEntity<String> whoIsOwnerToService(@PathVariable String serviceName) {
+        log.info("Fetching owner for service: {}", serviceName);
         return ResponseEntity.ok(serviceService.whoIsOwnerToService(serviceName));
     }
 
@@ -72,12 +80,14 @@ public class ServiceController {
     @GetMapping("/requester/{employeeEmail}/requested")
     @Operation(summary = "Get list of services requested by an employee")
     public ResponseEntity<List<String>> whatAreMyRequestedServices(@PathVariable String employeeEmail) {
+        log.info("Fetching requested services for employee: {}", employeeEmail);
         return ResponseEntity.ok(serviceService.whatAreMyRequestedServices(employeeEmail));
     }
 
     @GetMapping("/requester/{employeeEmail}/accessible")
     @Operation(summary = "Get list of services accessible by an employee")
     public ResponseEntity<List<String>> whatAreMyAccessibleServices(@PathVariable String employeeEmail) {
+        log.info("Fetching accessible services for employee: {}", employeeEmail);
         return ResponseEntity.ok(serviceService.whatAreMyAccessibleServices(employeeEmail));
     }
 
@@ -87,6 +97,7 @@ public class ServiceController {
         @PathVariable String serviceName,
         @PathVariable String employeeEmail
     ) {
+        log.info("Employee {} is requesting access to service {}", employeeEmail, serviceName);
         return ResponseEntity.ok(serviceService.requestServiceAccess(serviceName, employeeEmail));
     }
 
@@ -96,6 +107,7 @@ public class ServiceController {
         @PathVariable String serviceName,
         @PathVariable String employeeEmail
     ) {
+        log.info("Removing access request of employee {} for service {}", employeeEmail, serviceName);
         return ResponseEntity.ok(serviceService.removeServiceAccess(serviceName, employeeEmail));
     }
 
@@ -105,6 +117,7 @@ public class ServiceController {
         @PathVariable String serviceName,
         @PathVariable String employeeEmail
     ) {
+        log.info("Checking if employee {} has access to service {}", employeeEmail, serviceName);
         return ResponseEntity.ok(serviceService.isServiceAccessGranted(serviceName, employeeEmail));
     }
 
@@ -115,6 +128,7 @@ public class ServiceController {
     @GetMapping("/owner/{employeeEmail}")
     @Operation(summary = "Get services owned by an employee")
     public ResponseEntity<List<String>> whatAreMyServices(@PathVariable String employeeEmail) {
+        log.info("Fetching services owned by employee: {}", employeeEmail);
         return ResponseEntity.ok(serviceService.whatAreMyServices(employeeEmail));
     }
 
@@ -124,6 +138,7 @@ public class ServiceController {
         @PathVariable String serviceName,
         @PathVariable String employeeEmail
     ) {
+        log.info("Checking ownership: does {} own service {}?", employeeEmail, serviceName);
         return ResponseEntity.ok(serviceService.isServiceOwnedByMe(serviceName, employeeEmail));
     }
 
@@ -133,6 +148,7 @@ public class ServiceController {
         @PathVariable String serviceName,
         @PathVariable String newOwnerEmail
     ) {
+        log.info("Transferring ownership of service {} to {}", serviceName, newOwnerEmail);
         return ResponseEntity.ok(serviceService.transferServiceOwnership(serviceName, newOwnerEmail));
     }
 
@@ -142,6 +158,7 @@ public class ServiceController {
         @PathVariable String serviceName,
         @PathVariable String employeeEmail
     ) {
+        log.info("Granting access to service {} for employee {}", serviceName, employeeEmail);
         return ResponseEntity.ok(serviceService.addServiceAccess(serviceName, employeeEmail));
     }
 
@@ -151,6 +168,7 @@ public class ServiceController {
         @PathVariable String serviceName,
         @PathVariable String ownerEmail
     ) {
+        log.info("Fetching access requests for service {} by owner {}", serviceName, ownerEmail);
         return ResponseEntity.ok(serviceService.whoHasRequestedMyService(serviceName, ownerEmail));
     }
 
@@ -160,6 +178,7 @@ public class ServiceController {
         @PathVariable String serviceName,
         @PathVariable String ownerEmail
     ) {
+        log.info("Fetching accessors of service {} for owner {}", serviceName, ownerEmail);
         return ResponseEntity.ok(serviceService.whoHasAccessToMyService(serviceName, ownerEmail));
     }
 
@@ -169,6 +188,7 @@ public class ServiceController {
         @PathVariable String serviceName,
         @PathVariable String employeeEmail
     ) {
+        log.info("Explicitly granting access to service {} for employee {}", serviceName, employeeEmail);
         return ResponseEntity.ok(serviceService.grantServiceAccess(serviceName, employeeEmail));
     }
 
@@ -178,6 +198,7 @@ public class ServiceController {
         @PathVariable String serviceName,
         @PathVariable String employeeEmail
     ) {
+        log.info("Revoking access to service {} from employee {}", serviceName, employeeEmail);
         return ResponseEntity.ok(serviceService.revokeServiceAccess(serviceName, employeeEmail));
     }
 }

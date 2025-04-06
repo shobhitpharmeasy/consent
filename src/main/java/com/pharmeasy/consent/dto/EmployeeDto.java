@@ -1,7 +1,6 @@
 package com.pharmeasy.consent.dto;
 
 import com.pharmeasy.consent.entity.Employee;
-import com.pharmeasy.consent.entity.Service;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.Email;
@@ -13,21 +12,24 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
+
+import static com.pharmeasy.consent.utils.Constants.regexEmail;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Slf4j
 public class EmployeeDto {
 
     @NotBlank(message = "Email is mandatory")
     @Email(message = "Invalid email format")
     @Pattern(
-        regexp = "^[^@]+@pharmeasy\\.in$",
-        message = "Email must be from pharmeasy.in domain"
+        regexp = regexEmail, message = "Email must be from pharmeasy.in domain"
     )
     private String email;
 
@@ -52,8 +54,8 @@ public class EmployeeDto {
     @NotNull(message = "Role is mandatory")
     private Employee.Role role;
 
-    // ✅ No validation — for serialization only
-    private List< Service > ownedServices;
-    private List< Service > requestedServices;
-    private List< Service > accessibleServices;
+    private List<String> ownedServices;
+    
+    private List<String> requestedServices;
+    private List<String> accessibleServices;
 }

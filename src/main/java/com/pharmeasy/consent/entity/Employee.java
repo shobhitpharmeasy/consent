@@ -1,11 +1,16 @@
 package com.pharmeasy.consent.entity;
 
+import com.pharmeasy.consent.utils.HashUtils;
+import com.pharmeasy.consent.utils.RandomUtils;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
@@ -17,9 +22,12 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.SQLJoinTableRestriction;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.pharmeasy.consent.utils.Constants.regexEmail;
 
 @Entity
 @Table(name = "employees")
@@ -34,7 +42,7 @@ public class Employee {
     @Column(name = "email", nullable = false, unique = true)
     @NotBlank(message = "Email is mandatory")
     @Pattern(
-        regexp = "^[^@]+@pharmeasy\\.in$", message = "Email must be a valid pharmeasy.in address"
+        regexp = regexEmail, message = "Email must be a valid pharmeasy.in address"
     )
     private String email;
 
@@ -61,20 +69,34 @@ public class Employee {
     @Column(name = "password_hash", nullable = false)
     @NotBlank(message = "Password hash is mandatory")
     @Size(min = 60, max = 60, message = "Password hash must be exactly 512 characters")
-    private String passwordHash;
+    @Builder.Default
+    private String passwordHash = HashUtils.hash(RandomUtils.generateRandomPassword());
 
     @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false)
     @NotNull(message = "Role is mandatory")
     private Role role;
 
+    @Builder.Default
     @OneToMany(mappedBy = "createdBy", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Service> ownedServices = new ArrayList<>();
 
-    @jakarta.persistence.Transient
+    @Builder.Default
+    @ManyToMany
+    @JoinTable(
+        name = "service_access", joinColumns = @JoinColumn(name = "employee_email"),
+        inverseJoinColumns = @JoinColumn(name = "service_name")
+    )
+    @SQLJoinTableRestriction("access_status = 1")
     private List<Service> requestedServices = new ArrayList<>();
 
-    @jakarta.persistence.Transient
+    @Builder.Default
+    @ManyToMany
+    @JoinTable(
+        name = "service_access", joinColumns = @JoinColumn(name = "employee_email"),
+        inverseJoinColumns = @JoinColumn(name = "service_name")
+    )
+    @SQLJoinTableRestriction("access_status = 2")
     private List<Service> accessibleServices = new ArrayList<>();
 
     public enum Role {

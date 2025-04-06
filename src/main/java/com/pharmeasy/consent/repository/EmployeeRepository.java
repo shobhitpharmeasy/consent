@@ -10,7 +10,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface EmployeeRepository
-    extends JpaRepository< Employee, String > {
+    extends JpaRepository<Employee, String> {
+
+    Optional<Employee> findByEmail(String email);
 
     @Query(
         """
@@ -19,7 +21,7 @@ public interface EmployeeRepository
                 WHERE e.email = :email
             """
     )
-    Optional< Employee > findByEmailWithOwnedServices( @Param("email") String email );
+    Optional<Employee> findByEmailWithOwnedServices(@Param("email") String email);
 
     @Query(
         """
@@ -28,7 +30,7 @@ public interface EmployeeRepository
                 WHERE KEY(ea).email = :email AND ea = com.pharmeasy.consent.entity.Service.AccessStatus.REQUESTED
             """
     )
-    List< Service > findRequestedServicesByEmployeeEmail( @Param("email") String email );
+    List<Service> findRequestedServicesByEmployeeEmail(@Param("email") String email);
 
     @Query(
         """
@@ -37,6 +39,6 @@ public interface EmployeeRepository
                 WHERE KEY(ea).email = :email AND ea = com.pharmeasy.consent.entity.Service.AccessStatus.ACCEPTED
             """
     )
-    List< Service > findAccessibleServicesByEmployeeEmail( @Param("email") String email );
+    List<Service> findAccessibleServicesByEmployeeEmail(@Param("email") String email);
 
 }
