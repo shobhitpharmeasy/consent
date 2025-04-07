@@ -9,17 +9,15 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
 import static com.pharmeasy.consent.utils.Constants.regexEmail;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -55,7 +53,7 @@ public class EmployeeDto {
     private Employee.Role role;
 
     private List<String> ownedServices;
-    
+
     private List<String> requestedServices;
     private List<String> accessibleServices;
 }
