@@ -1,6 +1,5 @@
 package com.pharmeasy.consent.entity;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
@@ -13,6 +12,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapKeyJoinColumn;
 import jakarta.persistence.Table;
+import jakarta.persistence.Version;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -21,12 +21,16 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.SQLRestriction;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @Entity
 @Table(name = "services")
+@SQLRestriction("is_deleted = false")
+@SQLDelete(sql = "UPDATE services SET is_deleted = true WHERE service_name = ?")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -53,7 +57,7 @@ public class Service {
     @NotNull(message = "Service status is mandatory")
     private Boolean status;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "created_by")
     @NotNull(message = "Created by is mandatory")
     private Employee createdBy;
@@ -68,6 +72,14 @@ public class Service {
     @Enumerated(EnumType.ORDINAL)
     @Builder.Default
     private Map<Employee, AccessStatus> employeeAccess = new HashMap<>();
+
+    @Column(name = "is_deleted", nullable = false)
+    @Builder.Default
+    private boolean deleted = false;
+
+    @Version
+    @Column(name = "version")
+    private Long version;
 
 
     public enum AccessStatus {

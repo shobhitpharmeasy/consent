@@ -12,9 +12,6 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.Caching;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -45,7 +42,8 @@ public class EmployeeController {
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Create a new employee")
-    @CachePut(value = "employees", key = "#result.email")
+//    //@CachePut(value = "employees", key = "#result.email")
+    //@CachePut(value = "employees", key = "#employeeDto.email")
     public ResponseEntity<EmployeeDto> createEmployee(@Valid @RequestBody EmployeeDto employeeDto) {
         log.info("Received request to create employee with email: {}", employeeDto.getEmail());
 
@@ -60,7 +58,7 @@ public class EmployeeController {
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Get all employees")
-    @Cacheable(value = "employeesList")
+    //@Cacheable(value = "employeesList")
     public ResponseEntity<List<EmployeeDto>> getAllEmployee() {
         log.info("Received request to fetch all employees");
 
@@ -73,7 +71,7 @@ public class EmployeeController {
     @GetMapping("/{employeeEmail}")
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Get employee by email")
-    @Cacheable(value = "employees", key = "#employeeEmail")
+    //@Cacheable(value = "employees", key = "#employeeEmail")
     public ResponseEntity<EmployeeDto> getEmployeeById(@PathVariable @Email @NotBlank String employeeEmail) {
         log.info("Received request to fetch employee with email: {}", employeeEmail);
 
@@ -86,7 +84,7 @@ public class EmployeeController {
     @PutMapping("/{employeeEmail}")
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Update employee by email")
-    @CachePut(value = "employees", key = "#employeeEmail")
+    //@CachePut(value = "employees", key = "#employeeEmail")
     public ResponseEntity<EmployeeDto> updateEmployee(
         @PathVariable @Email @NotBlank String employeeEmail,
         @RequestBody @Valid EmployeeDto employeeDto
@@ -110,8 +108,8 @@ public class EmployeeController {
     @Operation(summary = "Delete employee by email")
     @Caching(
         evict = {
-            @CacheEvict(value = "employees", key = "#employeeEmail"),
-            @CacheEvict(value = "employeesList", allEntries = true)
+            //@CacheEvict(value = "employees", key = "#employeeEmail"),
+            //@CacheEvict(value = "employeesList", allEntries = true)
         }
     )
     public ResponseEntity<String> deleteEmployee(@PathVariable @Email @NotBlank String employeeEmail) {
@@ -126,7 +124,7 @@ public class EmployeeController {
     @PutMapping("/{employeeEmail}/password")
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @Operation(summary = "Update employee password")
-    @CacheEvict(value = "employees", key = "#employeeEmail")
+    //@CacheEvict(value = "employees", key = "#employeeEmail")
     public ResponseEntity<String> updatePassword(
         @PathVariable @Email @NotBlank String employeeEmail,
         @RequestBody @NotNull LoginRequestDto passwordRequest

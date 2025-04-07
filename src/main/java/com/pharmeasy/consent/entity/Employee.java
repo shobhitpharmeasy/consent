@@ -1,7 +1,5 @@
 package com.pharmeasy.consent.entity;
 
-import com.pharmeasy.consent.utils.HashUtils;
-import com.pharmeasy.consent.utils.RandomUtils;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -13,6 +11,7 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.Version;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -22,7 +21,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLJoinTableRestriction;
+import org.hibernate.annotations.SQLRestriction;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +32,8 @@ import static com.pharmeasy.consent.utils.Constants.regexEmail;
 
 @Entity
 @Table(name = "employees")
+@SQLRestriction("is_deleted = false")
+@SQLDelete(sql = "UPDATE employees SET is_deleted = true WHERE email = ?")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -69,8 +72,7 @@ public class Employee {
     @Column(name = "password_hash", nullable = false)
     @NotBlank(message = "Password hash is mandatory")
     @Size(min = 60, max = 60, message = "Password hash must be exactly 512 characters")
-    @Builder.Default
-    private String passwordHash = HashUtils.hash(RandomUtils.generateRandomPassword());
+    private String passwordHash;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false)
@@ -98,6 +100,15 @@ public class Employee {
     )
     @SQLJoinTableRestriction("access_status = 2")
     private List<Service> accessibleServices = new ArrayList<>();
+
+    @Column(name = "is_deleted", nullable = false)
+    @Builder.Default
+    private boolean deleted = false;
+
+    @Version
+    @Column(name = "version")
+    private Long version;
+
 
     public enum Role {
         ADMIN, USER;

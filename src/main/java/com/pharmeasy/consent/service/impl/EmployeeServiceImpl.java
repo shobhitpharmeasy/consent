@@ -2,6 +2,7 @@ package com.pharmeasy.consent.service.impl;
 
 import com.pharmeasy.consent.dto.EmployeeDto;
 import com.pharmeasy.consent.entity.Employee;
+import com.pharmeasy.consent.entity.Service;
 import com.pharmeasy.consent.mapper.EmployeeMapper;
 import com.pharmeasy.consent.repository.EmployeeRepository;
 import com.pharmeasy.consent.utils.HashUtils;
@@ -105,6 +106,10 @@ public class EmployeeServiceImpl
             log.warn("Attempted to delete non-existent employee: {}", employeeEmail);
             return new RuntimeException("Email not found: " + employeeEmail);
         });
+
+        for (Service service : employee.getOwnedServices()) {
+            service.setDeleted(true);
+        }
 
         employeeRepository.delete(employee);
         log.info("Deleted employee: {}", employeeEmail);

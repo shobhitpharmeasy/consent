@@ -7,7 +7,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,7 +24,7 @@ public class LoginController {
 
     @PostMapping
     @Operation(summary = "Authenticate user and return JWT")
-    @Cacheable(value = "loginTokens", key = "#requestDto.email + ':' + #requestDto.password")
+    //@Cacheable(value = "loginTokens", key = "#requestDto.email + ':' + #requestDto.password")
     public ResponseEntity<String> login(@Valid @RequestBody final LoginRequestDto requestDto) {
         log.info("Login request received for email: {}", requestDto.getEmail());
         final String response = loginService.login(requestDto);

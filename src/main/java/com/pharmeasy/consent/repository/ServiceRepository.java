@@ -21,4 +21,7 @@ public interface ServiceRepository
             """
     )
     List<Service> findAllServicesByEmployeeEmail(@Param("email") String email);
+
+    @Query("SELECT s FROM Service s WHERE s.name = :name AND s.deleted = true")
+    Optional<Service> findDeletedByName(@Param("name") String name);
 }
