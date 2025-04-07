@@ -27,6 +27,12 @@ public class ServiceServiceImpl
     private final ServiceMapper serviceMapper;
     private final EmployeeRepository employeeRepository;
 
+    /**
+     * Self‐reference provider to break the circular dependency.
+     * We only resolve the actual ServiceService bean at runtime.
+     */
+    private final org.springframework.beans.factory.ObjectProvider<ServiceService> selfProvider;
+
     @Override
     @Transactional
     public ServiceDto createService(final ServiceDto serviceDto) {
@@ -222,7 +228,7 @@ public class ServiceServiceImpl
     @Override
     @Transactional(readOnly = true)
     public Boolean isServiceOwnedByMe(final String serviceName, final String email) {
-        final boolean isOwner = whoIsOwnerToService(serviceName).equals(email);
+        final boolean isOwner = self().whoIsOwnerToService(serviceName).equals(email);
         log.debug("Is service owned by {}: {}", email, isOwner);
         return isOwner;
     }
@@ -264,7 +270,7 @@ public class ServiceServiceImpl
     @Override
     @Transactional(readOnly = true)
     public List<String> whoHasRequestedMyService(final String serviceName, final String ownerEmail) {
-        if (Boolean.FALSE.equals(isServiceOwnedByMe(serviceName, ownerEmail))) {
+        if (Boolean.FALSE.equals(self().isServiceOwnedByMe(serviceName, ownerEmail))) {
             log.warn("Unauthorized access to requesters list by: {}", ownerEmail);
             throw new RuntimeException("You are not the owner of this service");
         }
@@ -277,7 +283,7 @@ public class ServiceServiceImpl
     @Override
     @Transactional(readOnly = true)
     public List<String> whoHasAccessToMyService(final String serviceName, final String ownerEmail) {
-        if (Boolean.FALSE.equals(isServiceOwnedByMe(serviceName, ownerEmail))) {
+        if (Boolean.FALSE.equals(self().isServiceOwnedByMe(serviceName, ownerEmail))) {
             log.warn("Unauthorized access to access list by: {}", ownerEmail);
             throw new RuntimeException("You are not the owner of this service");
         }
@@ -290,12 +296,16 @@ public class ServiceServiceImpl
     @Override
     @Transactional
     public Boolean grantServiceAccess(final String serviceName, final String email) {
-        return addServiceAccess(serviceName, email);
+        return self().addServiceAccess(serviceName, email);
     }
 
     @Override
     @Transactional
     public Boolean revokeServiceAccess(final String serviceName, final String email) {
-        return removeServiceAccess(serviceName, email);
+        return self().removeServiceAccess(serviceName, email);
+    }
+
+    private ServiceService self() {
+        return selfProvider.getIfAvailable(() -> this);
     }
 }

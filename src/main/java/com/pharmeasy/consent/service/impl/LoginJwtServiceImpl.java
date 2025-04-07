@@ -7,6 +7,7 @@ import com.pharmeasy.consent.service.LoginJwtService;
 import com.pharmeasy.consent.utils.JwtUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -44,6 +45,7 @@ public class LoginJwtServiceImpl
 
     @Override
     @Transactional(readOnly = true)
+    @Cacheable(value = "loginTokens", key = "#loginRequestDto.email + ':' + #loginRequestDto.token")
     public Boolean isAuthorized(final LoginRequestDto loginRequestDto) {
 //        return Boolean.TRUE;
         return jwtUtils.validateToken(loginRequestDto.getToken(), loginRequestDto.getEmail());
