@@ -3,12 +3,13 @@ package com.pharmeasy.consent.repository;
 import com.pharmeasy.consent.entity.Employee;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.history.RevisionRepository;
 import org.springframework.data.repository.query.Param;
 
 import java.util.Optional;
 
 public interface EmployeeRepository
-    extends JpaRepository<Employee, String> {
+    extends JpaRepository<Employee, String>, RevisionRepository<Employee, String, Integer> {
 
     // Optional alias for consistency or legacy use
     default Optional<Employee> findByEmail(final String email) {

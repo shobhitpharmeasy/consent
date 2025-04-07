@@ -24,12 +24,14 @@ import lombok.Setter;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLJoinTableRestriction;
 import org.hibernate.annotations.SQLRestriction;
+import org.hibernate.envers.Audited;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.pharmeasy.consent.utils.Constants.regexEmail;
 
+@Audited
 @Entity
 @Table(name = "employees")
 @SQLRestriction("is_deleted = false")
@@ -45,27 +47,27 @@ public class Employee {
     @Column(name = "email", nullable = false, unique = true)
     @NotBlank(message = "Email is mandatory")
     @Pattern(
-        regexp = regexEmail, message = "Email must be a valid pharmeasy.in address"
+            regexp = regexEmail, message = "Email must be a valid pharmeasy.in address"
     )
     private String email;
 
     @Column(name = "first_name", nullable = false)
     @NotBlank(message = "First name is mandatory")
     @Pattern(
-        regexp = "^[a-zA-Z]+$", message = "First name must contain only letters"
+            regexp = "^[a-zA-Z]+$", message = "First name must contain only letters"
     )
     private String firstName;
 
     @Column(name = "middle_name")
     @Pattern(
-        regexp = "^[a-zA-Z]*$", message = "Middle name must contain only letters"
+            regexp = "^[a-zA-Z]*$", message = "Middle name must contain only letters"
     )
     private String middleName;
 
     @Column(name = "last_name", nullable = false)
     @NotBlank(message = "Last name is mandatory")
     @Pattern(
-        regexp = "^[a-zA-Z]+$", message = "Last name must contain only letters"
+            regexp = "^[a-zA-Z]+$", message = "Last name must contain only letters"
     )
     private String lastName;
 
@@ -86,8 +88,8 @@ public class Employee {
     @Builder.Default
     @ManyToMany
     @JoinTable(
-        name = "service_access", joinColumns = @JoinColumn(name = "employee_email"),
-        inverseJoinColumns = @JoinColumn(name = "service_name")
+            name = "service_access", joinColumns = @JoinColumn(name = "employee_email"),
+            inverseJoinColumns = @JoinColumn(name = "service_name")
     )
     @SQLJoinTableRestriction("access_status = 1")
     private List<Service> requestedServices = new ArrayList<>();
@@ -95,8 +97,8 @@ public class Employee {
     @Builder.Default
     @ManyToMany
     @JoinTable(
-        name = "service_access", joinColumns = @JoinColumn(name = "employee_email"),
-        inverseJoinColumns = @JoinColumn(name = "service_name")
+            name = "service_access", joinColumns = @JoinColumn(name = "employee_email"),
+            inverseJoinColumns = @JoinColumn(name = "service_name")
     )
     @SQLJoinTableRestriction("access_status = 2")
     private List<Service> accessibleServices = new ArrayList<>();
