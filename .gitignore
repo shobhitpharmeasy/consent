@@ -35,3 +35,6 @@ build/
 
 ### MAC ###
 .DS_Store
+
+### MISE ###
+.mise_bin/

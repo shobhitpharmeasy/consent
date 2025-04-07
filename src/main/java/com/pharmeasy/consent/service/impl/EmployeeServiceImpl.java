@@ -2,7 +2,6 @@ package com.pharmeasy.consent.service.impl;
 
 import com.pharmeasy.consent.dto.EmployeeDto;
 import com.pharmeasy.consent.entity.Employee;
-import com.pharmeasy.consent.entity.Service;
 import com.pharmeasy.consent.mapper.EmployeeMapper;
 import com.pharmeasy.consent.repository.EmployeeRepository;
 import com.pharmeasy.consent.utils.HashUtils;
@@ -64,8 +63,6 @@ public class EmployeeServiceImpl
             log.warn("Employee not found: {}", employeeEmail);
             return new RuntimeException("Email not found: " + employeeEmail);
         });
-
-        enrichEmployeeWithServiceAccess(employee);
 
         return employeeMapper.toDto(employee);
     }
@@ -130,15 +127,5 @@ public class EmployeeServiceImpl
 
         log.info("Password updated successfully for employee: {}", employeeEmail);
         return "Password updated successfully";
-    }
-
-    private void enrichEmployeeWithServiceAccess(final Employee employee) {
-        log.debug("Enriching employee {} with service access details", employee.getEmail());
-
-        final List<Service> requested = employeeRepository.findRequestedServicesByEmployeeEmail(employee.getEmail());
-        final List<Service> accessible = employeeRepository.findAccessibleServicesByEmployeeEmail(employee.getEmail());
-
-        employee.setRequestedServices(requested);
-        employee.setAccessibleServices(accessible);
     }
 }

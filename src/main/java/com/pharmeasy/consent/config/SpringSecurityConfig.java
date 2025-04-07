@@ -14,6 +14,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
+// TODO: soft delete and hard delete
+// TODO: 2 types of locking - Pessimistic Locking & Optimistic/Sequence Locking
+
 @Slf4j
 @Configuration
 @EnableMethodSecurity
