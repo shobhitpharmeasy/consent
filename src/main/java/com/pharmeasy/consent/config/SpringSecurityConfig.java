@@ -15,6 +15,7 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 // TODO: 2 types of locking - Pessimistic Locking & Optimistic/Sequence Locking
+// TODO: Spring security how to break an api & how to secure it
 
 @Slf4j
 @Configuration
