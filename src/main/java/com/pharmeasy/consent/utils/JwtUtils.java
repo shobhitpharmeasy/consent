@@ -19,8 +19,8 @@ public class JwtUtils {
 
     private static final String SECRET_KEY = Constants.SECRET_KEY;
 
-    private JwtUtils() {
-        log.debug("JwtUtils loaded - constructor is private");
+    protected JwtUtils() {
+        log.debug("JwtUtils loaded - constructor is protected");
     }
 
     /**

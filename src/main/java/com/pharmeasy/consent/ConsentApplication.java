@@ -10,6 +10,8 @@ import org.springframework.scheduling.annotation.EnableAsync;
 
 @Slf4j
 @SpringBootApplication
+//@EnableAspectJAutoProxy
+//@EnableLoadTimeWeaving
 @EnableCaching
 @EnableAsync
 @EnableJpaRepositories(repositoryFactoryBeanClass = EnversRevisionRepositoryFactoryBean.class)

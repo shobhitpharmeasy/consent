@@ -11,10 +11,17 @@ spring:
         password:          '52'
         driver-class-name: org.postgresql.Driver
     jpa:
+        properties:
+            hibernate:
+                format_sql: true
+                transaction:
+                    jta:
+                        platform: org.hibernate.service.jta.platform.internal.JBossAppServerJtaPlatform
         hibernate:
             ddl-auto: update
         #            ddl-auto: validate
         open-in-view: false
+        show-sql:     true
     main:
         lazy-initialization: true
     cache:

@@ -6,7 +6,6 @@ import com.pharmeasy.consent.entity.Service;
 import com.pharmeasy.consent.mapper.EmployeeMapper;
 import com.pharmeasy.consent.repository.EmployeeRepository;
 import com.pharmeasy.consent.utils.HashUtils;
-import com.pharmeasy.consent.utils.JwtUtils;
 import com.pharmeasy.consent.utils.RandomUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +21,6 @@ public class EmployeeServiceImpl
     implements com.pharmeasy.consent.service.EmployeeService {
 
     private final EmployeeMapper employeeMapper;
-    private final JwtUtils jwtUtils;
     private final EmployeeRepository employeeRepository;
 
     @Override

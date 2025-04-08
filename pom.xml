@@ -43,6 +43,11 @@
         <org.mapstruct.version>1.6.3</org.mapstruct.version>
         <org.projectlombok.lombok-mapstruct-binding.version>0.2.0</org.projectlombok.lombok-mapstruct-binding.version>
         <jjwt.version>0.12.6</jjwt.version>
+        <maven.compiler.debug>true</maven.compiler.debug> <!-- toggle true for dev -->
+        <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
+        <maven.compiler.compilerArgs>-Xlint:all</maven.compiler.compilerArgs>
+        <!--        <maven.compiler.compilerArgs>-Xlint:all -parameters -deprecation -g</maven.compiler.compilerArgs>-->
+        <!--        <maven.compiler.compilerArgs>-Xlint:none -g:none -nowarn</maven.compiler.compilerArgs>-->
     </properties>
 
     <dependencies>
@@ -191,6 +196,10 @@
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
+                    <release>${java.version}</release>
+                    <fork>true</fork>
+                    <debug>${maven.compiler.debug}</debug>
+                    <encoding>${maven.compiler.encoding}</encoding>
                     <annotationProcessorPaths>
                         <!-- Lombok processor -->
                         <path>
@@ -210,6 +219,10 @@
                             <version>${org.mapstruct.version}</version>
                         </path>
                     </annotationProcessorPaths>
+                    <compilerArgs>
+                        <arg>--enable-preview</arg>
+                        <arg>${maven.compiler.compilerArgs}</arg>
+                    </compilerArgs>
                 </configuration>
             </plugin>
 
