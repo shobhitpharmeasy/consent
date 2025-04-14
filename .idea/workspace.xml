@@ -5,58 +5,46 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b9bcd0f4-a544-4ac8-9cf3-45c56c385073" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/0861db17-cbe6-473d-9fdb-ca113e56adc8.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/0861db17-cbe6-473d-9fdb-ca113e56adc8/storage_v2/_src_/database/consent.GsC2OA.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/0861db17-cbe6-473d-9fdb-ca113e56adc8/storage_v2/_src_/database/consent.GsC2OA/schema/information_schema.FNRwLQ.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/0861db17-cbe6-473d-9fdb-ca113e56adc8/storage_v2/_src_/database/consent.GsC2OA/schema/pg_catalog.0S1ZNQ.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/0861db17-cbe6-473d-9fdb-ca113e56adc8/storage_v2/_src_/database/consent.GsC2OA/schema/public.abK9xQ.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/0861db17-cbe6-473d-9fdb-ca113e56adc8/storage_v2/_src_/database/postgres.edMnLQ.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/0861db17-cbe6-473d-9fdb-ca113e56adc8/storage_v2/_src_/database/postgres.edMnLQ/schema/information_schema.FNRwLQ.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/0861db17-cbe6-473d-9fdb-ca113e56adc8/storage_v2/_src_/database/postgres.edMnLQ/schema/pg_catalog.0S1ZNQ.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/58e10198-6e07-47f6-81cf-be71f7c153cc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/58e10198-6e07-47f6-81cf-be71f7c153cc/storage_v2/_src_/schema/information_schema.FNRwLQ.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/58e10198-6e07-47f6-81cf-be71f7c153cc/storage_v2/_src_/schema/mysql.osA4Bg.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/58e10198-6e07-47f6-81cf-be71f7c153cc/storage_v2/_src_/schema/performance_schema.kIw0nw.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/58e10198-6e07-47f6-81cf-be71f7c153cc/storage_v2/_src_/schema/sys.zb4BAA.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/96bdb437-e567-4851-8fae-2c52a5b3c119.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/96bdb437-e567-4851-8fae-2c52a5b3c119/storage_v2/_src_/database/consent.GsC2OA.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/96bdb437-e567-4851-8fae-2c52a5b3c119/storage_v2/_src_/database/consent.GsC2OA/schema/information_schema.FNRwLQ.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/96bdb437-e567-4851-8fae-2c52a5b3c119/storage_v2/_src_/database/consent.GsC2OA/schema/pg_catalog.0S1ZNQ.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/96bdb437-e567-4851-8fae-2c52a5b3c119/storage_v2/_src_/database/postgres.edMnLQ.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/96bdb437-e567-4851-8fae-2c52a5b3c119/storage_v2/_src_/database/postgres.edMnLQ/schema/information_schema.FNRwLQ.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/96bdb437-e567-4851-8fae-2c52a5b3c119/storage_v2/_src_/database/postgres.edMnLQ/schema/pg_catalog.0S1ZNQ.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/96bdb437-e567-4851-8fae-2c52a5b3c119/storage_v2/_src_/database/postgres.edMnLQ/schema/public.abK9xQ.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/a985c28e-e800-47ee-9909-d189a5518da2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/a985c28e-e800-47ee-9909-d189a5518da2/storage_v2/_src_/schema/main.uQUzAA.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/httpRequests/http-client.cookies" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/httpRequests/http-requests-log.http" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/intellij-javadocs-4.0.1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/kotlinc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/mise.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/identifier.sqlite" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mise.toml" beforeDir="false" afterPath="$PROJECT_DIR$/mise.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/pharmeasy/consent/ConsentApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pharmeasy/consent/ConsentApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/pharmeasy/consent/service/impl/EmployeeServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pharmeasy/consent/service/impl/EmployeeServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/pharmeasy/consent/utils/JwtUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pharmeasy/consent/utils/JwtUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/logback-spring.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/logback-spring.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/pharmeasy/consent/controller/UserConsentLogController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/pharmeasy/consent/controller/UserController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/pharmeasy/consent/dto/UserConsentLogDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/pharmeasy/consent/dto/UserDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/pharmeasy/consent/entity/UserConsentLog.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/pharmeasy/consent/mapper/UserConsentLogMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/pharmeasy/consent/mapper/UserMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/pharmeasy/consent/mapper/helper/UserMapperHelper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/pharmeasy/consent/repository/UserConsentLogRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/pharmeasy/consent/repository/UserRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/pharmeasy/consent/service/UserConsentLogService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/pharmeasy/consent/service/UserService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/pharmeasy/consent/service/impl/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/pharmeasy/consent/controller/EmployeeController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/pharmeasy/consent/controller/LoginController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/pharmeasy/consent/controller/ServiceController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/pharmeasy/consent/controller/WelcomeController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/pharmeasy/consent/dto/ApiErrorDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/pharmeasy/consent/dto/EmployeeDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/pharmeasy/consent/dto/LoginRequestDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/pharmeasy/consent/dto/ServiceDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/pharmeasy/consent/entity/Employee.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pharmeasy/consent/entity/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/pharmeasy/consent/entity/Service.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/pharmeasy/consent/mapper/EmployeeMapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/pharmeasy/consent/mapper/ServiceMapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/pharmeasy/consent/mapper/helper/EmployeeMapperHelper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/pharmeasy/consent/mapper/helper/ServiceMapperHelper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/pharmeasy/consent/repository/EmployeeRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/pharmeasy/consent/repository/ServiceRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/pharmeasy/consent/service/EmployeeService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/pharmeasy/consent/service/LoginJwtService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/pharmeasy/consent/service/ServiceService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/pharmeasy/consent/service/impl/EmployeeServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/pharmeasy/consent/service/impl/LoginJwtServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/pharmeasy/consent/service/impl/ServiceServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/pharmeasy/consent/utils/Constants.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/pharmeasy/consent/utils/HashUtils.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/pharmeasy/consent/utils/JwtUtils.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/pharmeasy/consent/utils/RandomUtils.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -138,7 +126,7 @@
     &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
     &quot;Spring Boot.ConsentApplication.executor&quot;: &quot;Run&quot;,
     &quot;code.cleanup.on.save&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;consent&quot;,
     &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
     &quot;ignore.preview.features.used&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
@@ -153,7 +141,7 @@
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
     &quot;rearrange.code.on.save&quot;: &quot;true&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;MavenSettings&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;settings.sync&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
   &quot;keyToStringList&quot;: {
@@ -197,7 +185,6 @@
     <attachedChunks>
       <set>
         <option value="bundled-jdk-9823dce3aa75-a94e463ab2e7-intellij.indexing.shared.core-IU-243.26053.27" />
-        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-IU-243.26053.27" />
       </set>
     </attachedChunks>
   </component>
@@ -220,7 +207,14 @@
       <workItem from="1744004880144" duration="16641000" />
       <workItem from="1744100500476" duration="5160000" />
       <workItem from="1744140288849" duration="418000" />
-      <workItem from="1744140949934" duration="1845000" />
+      <workItem from="1744140949934" duration="2753000" />
+      <workItem from="1744176220397" duration="1421000" />
+      <workItem from="1744201078745" duration="1187000" />
+      <workItem from="1744231124600" duration="2038000" />
+      <workItem from="1744295193821" duration="17000" />
+      <workItem from="1744297830223" duration="4296000" />
+      <workItem from="1744367140494" duration="922000" />
+      <workItem from="1744613427083" duration="364000" />
     </task>
     <servers />
   </component>
