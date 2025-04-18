@@ -1,6 +1,7 @@
 [tools]
 java = ["21", "oracle-graalvm-21.0.6"]
 maven = "3.9.9"
+"npm:yaml-sort" = "latest"
 
 [env]
 _.path = ["{{ vars.mise_bin_dir }}"]

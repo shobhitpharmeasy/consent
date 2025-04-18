@@ -1,44 +1,67 @@
-spring:
-    application:
-        name: consent
-    security:
-        user:
-            name:     consent
-            password: consent
-    datasource:
-        url:               jdbc:postgresql://localhost:5432/consent
-        username:          shobhit.aggarwal
-        password:          '52'
-        driver-class-name: org.postgresql.Driver
-    jpa:
-        properties:
-            hibernate:
-                format_sql: true
-                transaction:
-                    jta:
-                        platform: org.hibernate.service.jta.platform.internal.JBossAppServerJtaPlatform
-        hibernate:
-            ddl-auto: update
-        #            ddl-auto: validate
-        open-in-view: false
-        show-sql:     true
-    main:
-        lazy-initialization: true
-    cache:
-        caffeine:
-            spec: maximumSize=500,expireAfterAccess=600s
-    threads:
-        virtual:
-            enabled: true
+logging:
+    level:
+        '*':                                     info
+        org.springframework.boot.context.config: debug
 server:
-    port: 8081
     compression:
-        enabled:    true
-        mime-types: text/html,text/xml,text/plain,application/json
-    error:
-        include-stacktrace: never
-management:
-    endpoints:
-        web:
-            exposure:
-                include: health,info,metrics
+        enabled:           true
+        mime-types:
+            - text/html
+            - text/xml
+            - text/plain
+            - application/json
+        min-response-size: 1024
+    error.include-stacktrace: never
+    port:                     8081
+spring:
+    application.name:         consent
+    cache.caffeine.spec:      maximumSize=500,expireAfterAccess=600s
+    config.import:            file:./secrets.yml
+    datasource:
+        driver-class-name: org.postgresql.Driver
+        hikari:
+            connection-timeout: 30000
+            idle-timeout:       300000
+            max-lifetime:       1800000
+            maximum-pool-size:  20
+            minimum-idle:       5
+        password:          ${CONSENT_DB_PASSWORD}
+        url:               jdbc:postgresql://localhost:5432/consent
+        username:          ${CONSENT_DB_USERNAME:shobhit.aggarwal}
+    devtools:
+        add-properties:  true
+        restart.enabled: true
+    jpa:
+        hibernate.ddl-auto: validate
+        open-in-view:       false
+        properties.hibernate:
+            connection:
+                autocommit: true
+                isolation:  TRANSACTION_REPEATABLE_READ
+                pool_size:  20
+            format_sql:                       true
+            jdbc.lob.non_contextual_creation: true
+            transaction.jta.platform:         org.hibernate.service.jta.platform.internal.JBossAppServerJtaPlatform
+        show-sql:           true
+    mail:
+        host:     smtp.gmail.com
+        password: ${MAIL_PASSWORD}
+        port:     587
+        properties.mail.smtp:
+            auth:     true
+            starttls: true
+        username: ${MAIL_USERNAME}
+    main.lazy-initialization: true
+    quartz:
+        auto-startup:           false
+        jdbc.initialize-schema: never
+        job-store-type:         jdbc
+        properties.org.quartz.threadPool:
+            class:            org.quartz.simpl.SimpleThreadPool
+            threadCount:      5
+            threadNamePrefix: quartz-worker-
+            threadPriority:   5
+    security.user:
+        name:     consent
+        password: ${CONSENT_SECURITY_PASSWORD:consent}
+    threads.virtual.enabled:  true

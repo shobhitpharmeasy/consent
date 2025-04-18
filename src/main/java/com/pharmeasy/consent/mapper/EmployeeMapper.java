@@ -13,6 +13,7 @@ public interface EmployeeMapper {
 
     @Mapping(target = "passwordHash", ignore = true)
     @Mapping(target = "deleted", ignore = true)
+    @Mapping(target = "version", ignore = true)
     Employee toEntity(EmployeeDto employeeDto);
 
     EmployeeDto toDto(Employee employee);

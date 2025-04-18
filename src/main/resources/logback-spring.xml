@@ -27,12 +27,14 @@
     </appender>
 
     <!-- Rolling File Appender: hourly rollover -->
-    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <appender name="FILE"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${LOG_PATH}/app.log</file>
 
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- “%d{yyyy-MM-dd_HH}” → rollover at the top of each hour -->
-            <fileNamePattern>${LOG_PATH}/app-%d{yyyy-MM-dd_HH}.log</fileNamePattern>
+            <fileNamePattern>${LOG_PATH}/app-%d{yyyy-MM-dd_HH}.log
+            </fileNamePattern>
 
             <!-- keep 100 hours’ worth of hourly files -->
             <maxHistory>100</maxHistory>
@@ -49,7 +51,9 @@
     </logger>
 
     <!-- Log the bind parameter values -->
-    <logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="TRACE" additivity="false">
+    <logger name="org.hibernate.type.descriptor.sql.BasicBinder"
+            level="TRACE"
+            additivity="false">
         <appender-ref ref="ASYNC"/>
     </logger>
 
